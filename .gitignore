@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Uploads & Output
+uploads/
+*.pdf
+*.docx
+*.jpg
+*.png
+
+# IDE Settings
+.idea/
+.vscode/
