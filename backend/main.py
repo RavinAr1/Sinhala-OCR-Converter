@@ -1,10 +1,11 @@
 import os
 import shutil
-import fitz  # PyMuPDF
+import fitz  
 import re
 from PIL import Image, ImageOps
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware 
 from docx import Document
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -12,6 +13,16 @@ from backend.core.tesseract_engine import TesseractOCR
 from pdf2image import convert_from_path
 
 app = FastAPI()
+
+# Allow frontend access (CORS)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Allows all origins (good for local testing)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 os.makedirs("uploads", exist_ok=True)
 
 # Initialize Tesseract
