@@ -150,7 +150,7 @@ export function DocumentConverter() {
         </div>
         <div className="text-center">
           <h2 className="text-2xl font-semibold text-gray-900">Conversion Failed</h2>
-          <p className="text-gray-500 mt-2">Something went wrong. Is the backend running?</p>
+          <p className="text-gray-500 mt-2">Something went wrong. Try again?</p>
         </div>
         <Button onClick={handleConvertAnother} variant="outline">Try Again</Button>
       </div>
