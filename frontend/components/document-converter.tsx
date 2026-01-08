@@ -63,8 +63,8 @@ export function DocumentConverter() {
 
     // Send file to backend for conversion
     try {
-      const response = await axios.post("http://127.0.0.1:8000/convert", formData, {
-        responseType: "blob", 
+      const response = await axios.post("https://sinhala-ocr-converter.onrender.com", formData, {
+          responseType: "blob", 
       })
 
       // Create a temporary download link
