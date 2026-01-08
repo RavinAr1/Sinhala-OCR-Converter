@@ -1,6 +1,6 @@
 # Sinhala OCR & Document Converter
 
-A Full-Stack OCR tool designed to digitize Sinhala documents. It converts scanned PDFs and Images into editable Word documents (`.docx`) using an enhanced Tesseract OCR engine.
+An OCR tool designed to digitize Sinhala documents. It converts scanned PDFs and Images into editable Word documents (`.docx`) using an enhanced Tesseract OCR engine.
 
 ## 🚀 Key Features
 * **Sinhala Character Recognition:** Optimized for standard Sinhala Unicode text.
@@ -43,8 +43,18 @@ python -m venv venv
 # 3. Install Dependencies
 pip install fastapi uvicorn python-multipart pytesseract pdf2image python-docx pymupdf pillow
 
-# 4. Start the Server
+# 4. Setup Frontend
+cd frontend
+npm install
+
+
+# 4. Start the Application
+# Terminal 1: Backend - Make sure you are in the root folder with venv activated
 uvicorn backend.main:app --reload
 
+# Terminal 2: Frontend
+cd frontend
+npm run dev
+
 ```
-The API will run at http://127.0.0.1:8000/docs
+Open a browser and natigate to : https://localhost:3000
