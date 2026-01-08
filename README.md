@@ -10,9 +10,12 @@ An OCR tool designed to digitize Sinhala documents. It converts scanned PDFs and
 
 
 ## ⚠️ Current Limitations
-* **Layout Structure:** Complex multi-column layouts (like newspapers) are often flattened into a single column.
-* **Character Accuracy:** Best suited for plain Sinhala documents. May struggle with very old legacy fonts or highly stylized calligraphy.
-* **Diagrams:** Geometric shapes and vector drawings that are not saved as images in the PDF may be ignored.
+## ⚠️ Current Status & Limitations
+* **Accuracy:** The OCR engine (Tesseract) performs reasonably well on clear, high-contrast documents (both PDF and Images).
+* **Formatting:** While basic paragraph structure is preserved, complex layouts (like multi-column news articles or tables) may lose their original positioning.
+* **Formatting Improvements Needed:** The document reconstruction logic is currently simple. It centers titles and aligns text based on page position, but it does not yet perfectly replicate complex indentation, bullet points, or exact font sizes from the original file.
+* **Best Results:** Can be obtained from official letters, and clear book pages.
+
 
 ## 🛠️ Tech Stack
 * **Backend:** Python, FastAPI
