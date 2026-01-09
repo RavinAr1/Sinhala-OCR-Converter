@@ -61,9 +61,12 @@ export function DocumentConverter() {
     const formData = new FormData()
     formData.append("file", file)
 
+    // 
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"
+
     // Send file to backend for conversion
     try {
-      const response = await axios.post("https://sinhala-ocr-converter.onrender.com/convert", formData, {
+      const response = await axios.post(`${apiBaseUrl}/convert`, formData, {
           responseType: "blob", 
       })
 

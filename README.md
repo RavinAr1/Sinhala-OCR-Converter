@@ -23,9 +23,11 @@ Try the application online: **[Click Here](https://sinhala-ocr-converter.vercel.
 
 
 ## 🛠️ Tech Stack
+* **Frontend:** Next.js, React, Tailwind CSS
 * **Backend:** Python, FastAPI
 * **OCR Engine:** Tesseract (with Sinhala training data)
 * **Processing:** PyMuPDF (Fitz), Pillow, pdf2image
+* **Deployment:** Docker (Render), Vercel
 * **Document Generation:** python-docx
 
 ## 🏃‍♂️ How to Run Locally
@@ -55,6 +57,10 @@ pip install fastapi uvicorn python-multipart pytesseract pdf2image python-docx p
 cd frontend
 npm install
 
+# Configuration (Important!)
+
+Rename the .env.example file to .env.local
+
 
 # 4. Start the Application
 # Terminal 1: Backend - Make sure you are in the root folder with venv activated
@@ -65,4 +71,6 @@ cd frontend
 npm run dev
 
 ```
+
+
 Open a browser and natigate to : https://localhost:3000
