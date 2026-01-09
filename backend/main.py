@@ -14,6 +14,11 @@ from pdf2image import convert_from_path
 
 app = FastAPI()
 
+
+@app.get("/")
+def home():
+    return {"message": "Sinhala OCR Converter is Working!"}
+
 # Allow frontend access (CORS)
 app.add_middleware(
     CORSMiddleware,
