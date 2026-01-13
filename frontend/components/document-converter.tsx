@@ -70,6 +70,10 @@ export function DocumentConverter() {
     console.log("DEBUG - Final URL is:", apiBaseUrl);
 
 
+    // Debugging
+    console.log("DEBUG - Env Var is:", process.env.NEXT_PUBLIC_API_URL);
+    console.log("DEBUG - Final URL is:", apiBaseUrl);
+
     // Send file to backend for conversion
     try {
       const response = await axios.post(`${apiBaseUrl}/convert`, formData, {
