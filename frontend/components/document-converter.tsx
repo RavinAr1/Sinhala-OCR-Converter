@@ -69,11 +69,6 @@ export function DocumentConverter() {
     console.log("DEBUG - Env Var is:", process.env.NEXT_PUBLIC_API_URL);
     console.log("DEBUG - Final URL is:", apiBaseUrl);
 
-
-    // Debugging
-    console.log("DEBUG - Env Var is:", process.env.NEXT_PUBLIC_API_URL);
-    console.log("DEBUG - Final URL is:", apiBaseUrl);
-
     // Send file to backend for conversion
     try {
       const response = await axios.post(`${apiBaseUrl}/convert`, formData, {
@@ -199,7 +194,7 @@ export function DocumentConverter() {
             <div className="text-center">
               <p className="text-xl font-semibold text-gray-900">{file ? file.name : "Drag and drop your file"}</p>
               {!file && <p className="text-gray-600 mt-2 text-base font-light">or click to browse</p>}
-              {!file && <p className="text-sm text-gray-500 mt-1">PDF, JPG, PNG, WebP, or GIF</p>}
+              {!file && <p className="text-sm text-gray-500 mt-1">PDF, JPG or PNG</p>}
               {file && <p className="text-sm text-gray-500 mt-2">{(file.size / 1024).toFixed(1)} KB</p>}
             </div>
           </div>
