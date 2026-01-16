@@ -1,6 +1,6 @@
 # Sinhala OCR & Document Converter
 
-An OCR tool designed to digitize Sinhala documents. It converts scanned PDFs and Images into editable Word documents (`.docx`) using an enhanced Tesseract OCR engine.
+A simple OCR tool designed to digitize Sinhala documents. It converts scanned PDFs and Images into editable Word documents (`.docx`) using an enhanced Tesseract OCR engine.
 
 
 ## 🌐 Live Demo
@@ -19,7 +19,7 @@ Try the application online: **[Click Here](https://sinhala-ocr-converter.vercel.
 
     ( **Formatting Improvements Needed:** The document reconstruction logic is currently simple. It centers titles and aligns text based on page position, but it does not yet perfectly replicate complex indentation, bullet points, or exact font sizes from the original file. )
 
-* **Best Results:** Can be obtained from official letters, and clear book pages.
+* **Best Results:** Can be obtained from official letters, and clear book pages.(font sizes and font clarity/spacing could influence the accuracy)
 
 
 ## 🛠️ Tech Stack
@@ -27,7 +27,7 @@ Try the application online: **[Click Here](https://sinhala-ocr-converter.vercel.
 * **Backend:** Python, FastAPI
 * **OCR Engine:** Tesseract (with Sinhala training data)
 * **Processing:** PyMuPDF (Fitz), Pillow, pdf2image
-* **Deployment:** Docker (Render), Vercel
+* **Deployment:** Docker (Hugging Face Spaces), Vercel
 * **Document Generation:** python-docx
 
 ## 🏃‍♂️ How to Run Locally
