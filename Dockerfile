@@ -9,18 +9,33 @@ RUN apt-get update && apt-get install -y \
     poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
+
+# Setup a non-root user (for Hugging Face Security)
+RUN useradd -m -u 1000 user
+USER user
+ENV HOME=/home/user \
+    PATH=/home/user/.local/bin:$PATH
+
+
+    
 # Set the working directory
-WORKDIR /app
+WORKDIR $HOME/app
+
+
 
 # Copy backend requirements and install
-COPY backend/requirements.txt .
+# --chown=user so the new user owns these files
+COPY --chown=user backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the backend code
-COPY backend ./backend
+COPY --chown=user backend ./backend
+
+# Create uploads directory - temporary file storage
+RUN mkdir -p uploads && chmod 777 uploads
 
 # Expose the port
-EXPOSE 8000
+EXPOSE 7860
 
 # Run the application
-CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "7860"]
