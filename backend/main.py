@@ -11,6 +11,8 @@ from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from backend.core.tesseract_engine import TesseractOCR
 from pdf2image import convert_from_path, pdfinfo_from_path # Ensure pdfinfo is imported
+import gc
+
 
 app = FastAPI()
 
@@ -219,13 +221,16 @@ async def convert_file(file: UploadFile = File(...)):
                 
                 if pages:
                     current_image = pages[0]
-                   
-                   #  Process OCR for Single Page
+                    
+                    # Process OCR for Single Page
                     process_single_page_ocr(doc, current_image, i, file_location, is_pdf=True)
                     
                     # Cleanup
                     del current_image
                     del pages
+                    
+                    # Garbage Collection
+                    gc.collect()
 
         else:
             # Image Mode
