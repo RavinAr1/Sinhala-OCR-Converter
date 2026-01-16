@@ -7,18 +7,18 @@ An OCR tool designed to digitize Sinhala documents. It converts scanned PDFs and
 Try the application online: **[Click Here](https://sinhala-ocr-converter.vercel.app/)**
 
 
-## 🚀 Key Features
-* **Sinhala Character Recognition:** Optimized for standard Sinhala Unicode text.
+## 🚀 Key Technical Implementations
+* **Sinhala Character Recognition:** Optimized for standard Sinhala Unicode text using Tesseract 5.
+* **Streaming Architecture:** Implements a custom page-by-page processing pipeline to handle to process files safely on free hosting services.
+* **Optimized Sinhala OCR:** Fine-tuned Tesseract 5 with specific contrast enhancement and binarization preprocessing steps to maximize accuracy for Sinhala Unicode script.
 
-* **Smart Formatting:** Automatically detects exam questions and re-inserts dotted writing spaces (`.......`).
 
-
-
-## ⚠️ Current Limitations
 ## ⚠️ Current Status & Limitations
 * **Accuracy:** The OCR engine (Tesseract) performs reasonably well on clear, high-contrast documents (both PDF and Images).
-* **Formatting:** While basic paragraph structure is preserved, complex layouts (like multi-column news articles or tables) may lose their original positioning.
-* **Formatting Improvements Needed:** The document reconstruction logic is currently simple. It centers titles and aligns text based on page position, but it does not yet perfectly replicate complex indentation, bullet points, or exact font sizes from the original file.
+* **Formatting:** While basic paragraph structure is preserved, complex layouts (like multi-column news articles or tables) may lose their original positioning. 
+
+    ( **Formatting Improvements Needed:** The document reconstruction logic is currently simple. It centers titles and aligns text based on page position, but it does not yet perfectly replicate complex indentation, bullet points, or exact font sizes from the original file. )
+
 * **Best Results:** Can be obtained from official letters, and clear book pages.
 
 
@@ -36,9 +36,19 @@ Try the application online: **[Click Here](https://sinhala-ocr-converter.vercel.
 1.  **Install Python 3.10+**
 2.  **Install Tesseract OCR:**
     * Windows: [Download here](https://github.com/UB-Mannheim/tesseract/wiki)
-    * **Important:** During install, select "Sinhala" in "Additional Script Data".
+    
+         **Important:** During install, select "Sinhala" in "Additional Script Data".
+    * **macOS (Homebrew):**
+
+            brew install tesseract
+            brew install tesseract-lang
+            
+    
 3.  **Install Poppler:**
-    * Download and add the `bin` folder to your System PATH.
+    *  **Windows:** Download Poppler from [Here](https://github.com/oschwartz10612/poppler-windows/releases/tag/v25.12.0-0)  and add the `bin` folder to the System PATH.
+
+    * **macOS:** `brew install poppler`
+
 
 ### Installation
 ```bash
@@ -48,18 +58,24 @@ cd sinhala-ocr
 
 # 2. Create Virtual Environment
 python -m venv venv
+
+# Activate Virtual Environment:
 .\venv\Scripts\activate  # Windows
 
+source venv/bin/activate # macOS / Linux
+
 # 3. Install Dependencies
-pip install fastapi uvicorn python-multipart pytesseract pdf2image python-docx pymupdf pillow
+pip install -r backend/requirements.txt
 
 # 4. Setup Frontend
+# Make sure you are in the root folder with venv activated
 cd frontend
 npm install
 
-# Configuration (Important!)
+# Configuration
 
-Rename the .env.example file to .env.local
+Rename the .env.example file to .env.local 
+#(or ensure environment variables are set up as needed.)
 
 
 # 4. Start the Application

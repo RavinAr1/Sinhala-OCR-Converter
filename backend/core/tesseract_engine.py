@@ -78,8 +78,10 @@ class TesseractOCR(OCREngine):
         
         return lines
 
+    # Function to process a line and determine alignment
     def _process_line(self, words, lefts, rights, page_width):
-        """ Calculates alignment based on X-coordinates """
+        
+
         text = " ".join(words)
         min_left = min(lefts)
         max_right = max(rights)
