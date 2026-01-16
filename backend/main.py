@@ -1,3 +1,4 @@
+import gc
 import os
 import shutil
 import fitz 
@@ -10,8 +11,9 @@ from docx import Document
 from docx.shared import Inches, Pt, RGBColor
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from backend.core.tesseract_engine import TesseractOCR
-from pdf2image import convert_from_path, pdfinfo_from_path # Ensure pdfinfo is imported
-import gc
+from pdf2image import convert_from_path, pdfinfo_from_path 
+from fastapi import FastAPI, UploadFile, File, BackgroundTasks
+
 
 
 app = FastAPI()
@@ -31,8 +33,27 @@ app.add_middleware(
 
 os.makedirs("uploads", exist_ok=True)
 
+
+
+
+
+
 # Initialize Tesseract
 ocr_tool = TesseractOCR()
+
+
+
+# Cleanup Function
+def cleanup_files(file_paths):
+    
+    for path in file_paths:
+        try:
+            if os.path.exists(path):
+                os.remove(path)
+                print(f"Deleted: {path}")
+        except Exception as e:
+            print(f"Error deleting {path}: {e}")
+
 
 # Extract Images from PDF
 def extract_images_from_page(pdf_path, page_index, output_folder):
@@ -76,12 +97,17 @@ def extract_images_from_page(pdf_path, page_index, output_folder):
 
 
 # Process Single Page OCR
-def process_single_page_ocr(doc, ocr_img, i, file_location, is_pdf):
-    
+def process_single_page_ocr(doc, ocr_img, i, file_location, is_pdf, cleanup_list):
+
+
     # Extract and Insert Embedded Images
     if is_pdf:
         extracted = extract_images_from_page(file_location, i, "uploads")
         if extracted:
+            # Add to Cleanup List
+            cleanup_list.extend(extracted)
+
+            
             if len(extracted) > 1 and i == 0:
                 tbl = doc.add_table(rows=1, cols=len(extracted))
                 tbl.autofit = True
@@ -173,11 +199,15 @@ def process_single_page_ocr(doc, ocr_img, i, file_location, is_pdf):
 
 
 @app.post("/convert")
-async def convert_file(file: UploadFile = File(...)):
-    # Save Uploaded File Locally                     
+async def convert_file(background_tasks: BackgroundTasks, file: UploadFile = File(...)):
+    # Save Uploaded File                  
     file_location = f"uploads/{file.filename}"
     with open(file_location, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
+
+
+    # Track Files for Cleanup
+    files_to_clean = [file_location]
 
     # Create Word Document
     doc = Document()
@@ -221,15 +251,14 @@ async def convert_file(file: UploadFile = File(...)):
                 
                 if pages:
                     current_image = pages[0]
+                   
                     
-                    # Process OCR for Single Page
-                    process_single_page_ocr(doc, current_image, i, file_location, is_pdf=True)
+                    # Pass files to clean when calling the function
+                    process_single_page_ocr(doc, current_image, i, file_location, is_pdf=True, cleanup_list=files_to_clean)
                     
                     # Cleanup
                     del current_image
                     del pages
-                    
-                    # Garbage Collection
                     gc.collect()
 
         else:
@@ -258,4 +287,11 @@ async def convert_file(file: UploadFile = File(...)):
     # Save and Return Document
     output_name = f"uploads/{file.filename}_converted.docx"
     doc.save(output_name)
+
+    # Schedule Cleanup
+    files_to_clean.append(output_name)
+
+    # Add extracted images to cleanup list
+    background_tasks.add_task(cleanup_files, files_to_clean)
+
     return FileResponse(output_name, filename=f"converted_{file.filename}.docx")
