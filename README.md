@@ -1,6 +1,6 @@
 # Sinhala OCR & Document Converter
 
-An OCR tool designed to digitize Sinhala documents. It converts scanned PDFs and Images into editable Word documents (`.docx`) using an enhanced Tesseract OCR engine.
+A simple OCR tool designed to digitize Sinhala documents. It converts scanned PDFs and Images into editable Word documents (`.docx`) using an enhanced Tesseract OCR engine.
 
 
 ## 🌐 Live Demo
