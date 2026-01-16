@@ -36,9 +36,19 @@ Try the application online: **[Click Here](https://sinhala-ocr-converter.vercel.
 1.  **Install Python 3.10+**
 2.  **Install Tesseract OCR:**
     * Windows: [Download here](https://github.com/UB-Mannheim/tesseract/wiki)
-    * **Important:** During install, select "Sinhala" in "Additional Script Data".
+    
+         **Important:** During install, select "Sinhala" in "Additional Script Data".
+    * **macOS (Homebrew):**
+
+            brew install tesseract
+            brew install tesseract-lang
+            
+    
 3.  **Install Poppler:**
-    * Download and add the `bin` folder to your System PATH.
+    *  **Windows:** Download Poppler from [Here](https://github.com/oschwartz10612/poppler-windows/releases/tag/v25.12.0-0)  and add the `bin` folder to the System PATH.
+
+    * **macOS:** `brew install poppler`
+
 
 ### Installation
 ```bash
@@ -48,18 +58,24 @@ cd sinhala-ocr
 
 # 2. Create Virtual Environment
 python -m venv venv
+
+# Activate Virtual Environment:
 .\venv\Scripts\activate  # Windows
+
+source venv/bin/activate # macOS / Linux
 
 # 3. Install Dependencies
 pip install -r backend/requirements.txt
 
 # 4. Setup Frontend
+# Make sure you are in the root folder with venv activated
 cd frontend
 npm install
 
-# Configuration (Important!)
+# Configuration
 
-Rename the .env.example file to .env.local
+Rename the .env.example file to .env.local 
+#(or ensure environment variables are set up as needed.)
 
 
 # 4. Start the Application
